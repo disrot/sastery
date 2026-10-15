@@ -3,19 +3,6 @@ import { brand } from "../data";
 
 const STORAGE_KEY = "sastery-submissions";
 
-const kinds = [
-  "Original",
-  "Sped up",
-  "Slowed",
-  "Mashup",
-  "8D / spatial",
-  "Slap house",
-  "Phonk",
-  "Latin",
-  "Lyrics video",
-  "Other",
-];
-
 type Submission = {
   id: string;
   createdAt: string;
@@ -25,7 +12,6 @@ type Submission = {
   title: string;
   link: string;
   channel: string;
-  kind: string;
   intent: string;
   notes: string;
 };
@@ -37,7 +23,6 @@ type Field =
   | "title"
   | "link"
   | "channel"
-  | "kind"
   | "intent"
   | "rights";
 
@@ -48,7 +33,6 @@ const empty = {
   title: "",
   link: "",
   channel: brand[0]?.name ?? "",
-  kind: kinds[0],
   intent: "",
   notes: "",
   rights: false,
@@ -82,7 +66,6 @@ function validate(values: typeof empty) {
     errors.link = "Add a link to the audio or video.";
   }
   if (!values.channel) errors.channel = "Pick a brand channel.";
-  if (!values.kind) errors.kind = "Pick what the track is.";
   if (values.intent !== "Promote" && values.intent !== "Playlist listing") {
     errors.intent = "Choose promote or playlist listing.";
   }
@@ -123,7 +106,6 @@ export function SubmitForm() {
       title: values.title.trim(),
       link: values.link.trim(),
       channel: values.channel,
-      kind: values.kind,
       intent: values.intent,
       notes: values.notes.trim(),
     };
@@ -148,7 +130,6 @@ export function SubmitForm() {
       latest.id,
       `${latest.project} — ${latest.title}`,
       latest.intent,
-      latest.kind,
       `For ${latest.channel}`,
       latest.link,
       `${latest.name} <${latest.email}>`,
@@ -186,7 +167,7 @@ export function SubmitForm() {
                 {latest.project} — {latest.title}
               </p>
               <p className="meta">
-                {latest.intent} · {latest.kind} for {latest.channel}
+                {latest.intent} for {latest.channel}
               </p>
               <div className="success-actions">
                 <button className="btn btn-solid" type="button" onClick={copyLatest}>
@@ -287,18 +268,6 @@ export function SubmitForm() {
                   </div>
                   {errors.intent ? <small className="field-error">{errors.intent}</small> : null}
                 </div>
-                <Field label="What it is" id="kind" error={errors.kind}>
-                  <select
-                    id="kind"
-                    name="kind"
-                    value={values.kind}
-                    onChange={(event) => update("kind", event.target.value)}
-                  >
-                    {kinds.map((kind) => (
-                      <option key={kind}>{kind}</option>
-                    ))}
-                  </select>
-                </Field>
                 <Field label="Credits and notes" id="notes" wide>
                   <textarea
                     id="notes"
@@ -348,7 +317,7 @@ export function SubmitForm() {
                     </span>
                     <em>
                       {item.intent ? `${item.intent} · ` : ""}
-                      {item.kind} · {item.channel} ·{" "}
+                      {item.channel} ·{" "}
                       {new Date(item.createdAt).toLocaleString()}
                     </em>
                   </div>

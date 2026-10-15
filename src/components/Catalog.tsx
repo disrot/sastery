@@ -8,9 +8,6 @@ export function Catalog() {
       <div className="wrap">
         <p className="eyebrow">From the brand channels</p>
         <h2 className="section-title">One latest upload each.</h2>
-        <p className="lede">
-          The newest public video from each original brand channel, moving on its own. Pause it by hovering.
-        </p>
       </div>
       <div className="marquee">
         <ul className="marquee-track">

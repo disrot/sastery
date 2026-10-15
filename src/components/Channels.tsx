@@ -57,7 +57,7 @@ export function ChannelSection({
   id?: string;
   eyebrow: string;
   title: string;
-  lede: string;
+  lede?: string;
   channels: Channel[];
   moreHref?: string;
   moreLabel?: string;
@@ -81,11 +81,9 @@ export function ChannelSection({
     <section className="section" id={id}>
       <div className="wrap">
         <div className="section-head">
-          <div>
-            <p className="eyebrow">{eyebrow}</p>
-            <h2 className="section-title">{title}</h2>
-            <p className="lede">{lede}</p>
-          </div>
+          <p className="eyebrow">{eyebrow}</p>
+          <h2 className="section-title">{title}</h2>
+          {lede ? <p className="lede">{lede}</p> : null}
           <p className="stat">
             <strong>
               <CountUp text={String(channels.length)} />

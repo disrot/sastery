@@ -16,7 +16,7 @@ export function Home() {
         id="brand"
         eyebrow="Our brand"
         title="The channels under Sastery."
-        lede="Sorted by subscriber count. Six up front, the rest waits on the channels page."
+        lede=""
         channels={brand}
         moreHref="/channels"
         moreLabel="All brand channels"
@@ -25,21 +25,20 @@ export function Home() {
       <section className="section" id="playlist">
         <div className="wrap">
           <p className="eyebrow">Spotify</p>
-          <h2 className="section-title">Playlists from the profile.</h2>
-          <p className="lede">
-            Four public playlists from the Sastery Spotify account: sped up, 8D, house, and Latin.
-          </p>
+          <h2 className="section-title">Never-ending playlists.</h2>
           <SpotifyGrid playlists={spotifyPlaylists} />
           <p className="more-link">
-            <Link to="/playlist">Open the playlist page</Link>
+            <Link className="btn btn-line" to="/playlist">
+              Open the playlist page
+            </Link>
           </p>
         </div>
       </section>
       <ChannelSection
         id="partners"
         eyebrow="Our partners"
-        title="The bigger numbers first."
-        lede="The partner row, led by 1Hr Trend. Six shown here. The rest is one page away."
+        title="Our support systems."
+        lede=""
         channels={partners}
         moreHref="/partners"
         moreLabel="All partners"
