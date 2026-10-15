@@ -1,7 +1,10 @@
 import { uploads } from "../data";
+import { useLive, withLiveUploads } from "../live";
 
 export function Catalog() {
-  const loop = [...uploads, ...uploads];
+  const live = useLive();
+  const current = withLiveUploads(uploads, live?.uploads);
+  const loop = [...current, ...current];
 
   return (
     <section className="section" id="catalog">
@@ -12,13 +15,13 @@ export function Catalog() {
       <div className="marquee">
         <ul className="marquee-track">
           {loop.map((upload, index) => (
-            <li key={`${upload.id}-${index}`} aria-hidden={index >= uploads.length}>
+            <li key={`${upload.id}-${index}`} aria-hidden={index >= current.length}>
               <a
                 className="upload-card"
                 href={`https://www.youtube.com/watch?v=${upload.id}`}
                 target="_blank"
                 rel="noreferrer"
-                tabIndex={index >= uploads.length ? -1 : undefined}
+                tabIndex={index >= current.length ? -1 : undefined}
               >
                 <img src={`https://i.ytimg.com/vi/${upload.id}/hqdefault.jpg`} alt="" />
                 <span>

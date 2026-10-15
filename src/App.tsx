@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { LiveProvider } from "./live";
 import { brand, partners } from "./network";
 import { DirectoryPage } from "./pages/DirectoryPage";
 import { Home } from "./pages/Home";
@@ -20,12 +21,13 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <a className="skip" href="#brand">
-        Skip to channels
-      </a>
-      <Header />
-      <main>
+      <LiveProvider>
+        <ScrollToTop />
+        <a className="skip" href="#brand">
+          Skip to channels
+        </a>
+        <Header />
+        <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -55,6 +57,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      </LiveProvider>
     </BrowserRouter>
   );
 }

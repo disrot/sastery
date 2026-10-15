@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { youtubeChannel, type Channel } from "../data";
+import { useLive, withLiveCounts } from "../live";
 import { Arrow } from "./Arrow";
 import { CountUp } from "./CountUp";
 
@@ -63,16 +64,18 @@ export function ChannelSection({
   moreLabel?: string;
 }) {
   const [query, setQuery] = useState("");
+  const live = useLive();
   const preview = Boolean(moreHref);
+  const ranked = useMemo(() => withLiveCounts(channels, live?.channels), [channels, live]);
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q || preview) return channels;
-    return channels.filter((channel) =>
+    if (!q || preview) return ranked;
+    return ranked.filter((channel) =>
       `${channel.name} ${channel.handle} ${channel.lane ?? ""} ${channel.about ?? ""}`
         .toLowerCase()
         .includes(q),
     );
-  }, [channels, preview, query]);
+  }, [preview, query, ranked]);
 
   const clear = preview ? visible.slice(0, 6) : visible;
   const faded = preview ? visible.slice(6, 8) : [];
@@ -84,12 +87,6 @@ export function ChannelSection({
           <p className="eyebrow">{eyebrow}</p>
           <h2 className="section-title">{title}</h2>
           {lede ? <p className="lede">{lede}</p> : null}
-          <p className="stat">
-            <strong>
-              <CountUp text={String(channels.length)} />
-            </strong>
-            <span>channels</span>
-          </p>
         </div>
         {preview ? null : (
           <label className="search">

@@ -43,8 +43,15 @@ export function Hero() {
             </Link>
           </span>
         </h1>
+        <p className="hero-tag">We got you all covered.</p>
+        <p className="lede">This is the door for a new track.</p>
         <div className="hero-panel">
-          <p className="hero-panel-title">Send a track into the network.</p>
+          <div>
+            <p className="hero-panel-title">Send a track into the network.</p>
+            <p className="hero-panel-copy">
+              Pick a brand channel, share the link, and keep a copy of the pitch.
+            </p>
+          </div>
           <Link className="btn btn-solid" to="/submit">
             Open the portal
           </Link>
